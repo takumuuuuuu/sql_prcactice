@@ -1,0 +1,4 @@
+select order_id, quantity, revenue, quantity + 1 as new_quantity, revenue / quantity * (quantity + 1) as new_revenue
+from sample.sales
+order by new_revenue desc
+limit 3;
