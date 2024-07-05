@@ -1,0 +1,5 @@
+select * except(revenue), revenue * 1.1 as revenue_with_tax
+from sample.sales
+order by order_id asc
+limit 3
+;
