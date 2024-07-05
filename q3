@@ -1,0 +1,6 @@
+select *
+from sample.customers
+where birthday is not null
+and is_premium is true
+order by birthday desc, register_date asc
+limit 3;
