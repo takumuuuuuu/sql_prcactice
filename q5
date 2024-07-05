@@ -1,0 +1,7 @@
+select *
+from sample.customers
+where prefecture not in ("東京","千葉","埼玉","神奈川")
+and is_premium is true
+order by birthday desc
+limit 3
+;
