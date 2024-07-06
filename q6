@@ -1,0 +1,5 @@
+select birthday, count(birthday) as users
+from sample.customers
+group by birthday 
+having count(birthday) >= 2
+;
