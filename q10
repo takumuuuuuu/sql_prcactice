@@ -1,0 +1,12 @@
+case 
+  when cost < 300 then "0円以上300円未満"
+  when cost < 600 then "300円以上600円未満"
+  when cost < 900 then "600円以上900円未満"
+  when cost < 1200 then "900円以上1200円未満"
+  else "1200円以上"
+end as cost_range 
+,count(distinct product_id) as items
+from sample.products
+group by cost_range
+order by cost_range asc
+;
