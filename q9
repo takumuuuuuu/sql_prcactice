@@ -1,0 +1,6 @@
+select cid
+,max(session_count) - min(session_count) + 1 as number_of_visits
+from sample.web_log
+group by cid
+order by max(session_count) - min(session_count) + 1 desc
+limit 3;
