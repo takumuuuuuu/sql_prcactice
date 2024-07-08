@@ -1,0 +1,7 @@
+select product_category, sum(revenue)
+from sample.sales
+inner join sample.products
+using (product_id)
+group by product_category
+order by sum(revenue) desc
+;
