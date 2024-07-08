@@ -1,0 +1,11 @@
+with sum_all_quantities as (select sum(quantity) as sum_all_qty
+from sample.sales)
+select product_id
+, sum(quantity) as sum_qty
+, sum(quantity) / avg(sum_all_qty) as sales_share
+from sample.sales
+cross join sum_all_quantities
+group by product_id
+order by sales_share desc
+limit 5
+;
