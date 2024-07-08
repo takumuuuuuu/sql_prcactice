@@ -1,0 +1,15 @@
+select case gender
+  when 1 then "男性"
+  when 2 then "女性"
+  else "不明"
+end as customer_gender
+, product_category
+, sum(revenue) as sum_revenue  
+from sample.sales
+inner join sample.products
+using (product_id)
+inner join sample.customers
+using (user_id)
+group by gender, product_category
+order by gender asc, product_category desc
+;
