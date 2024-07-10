@@ -1,0 +1,11 @@
+select product_name
+, sum(quantity) as sum_quantity
+, sum(revenue) as sum_revenue
+, sum(cost * quantity) as sum_cost
+, sum(revenue - quantity * cost) as profit
+from sample.sales
+inner join sample.products
+using(product_id)
+group by product_name
+order by sum(revenue - quantity * cost) desc
+limit 3;
