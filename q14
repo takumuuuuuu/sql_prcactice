@@ -1,0 +1,14 @@
+select product_id
+from sample.sales
+where date_time between "2019-07-01" and "2019-09-30"
+group by product_id
+having sum(quantity) >= 10
+
+except distinct
+
+select product_id
+from sample.sales
+where date_time between "2019-10-01" and "2019-12-31"
+group by product_id
+having sum(quantity) >= 10
+;
