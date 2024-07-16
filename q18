@@ -1,0 +1,6 @@
+select count(*) as session, sum(pageviews) as sum_pageviews
+from(
+select cid, session_count, count(*) as pageviews
+from sample.web_log
+group by cid, session_count)
+;
