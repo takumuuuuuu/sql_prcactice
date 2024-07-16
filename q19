@@ -1,0 +1,5 @@
+select proper_revenue - not_proper_revenue as revenue_diff
+from (select sum(if(is_proper is true, revenue, 0)) as proper_revenue
+      , sum(if (is_proper is false, revenue, 0)) as not_proper_revenue
+      from sample.sales)
+;
