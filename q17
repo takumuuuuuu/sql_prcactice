@@ -1,0 +1,10 @@
+select *
+from sample.customers
+where prefecture in (select prefecture
+                     from sample.customers
+                     group by prefecture
+                     having sum(if (is_premium is true, 1, 0)) >= 4)
+and birthday is not null                     
+order by birthday asc
+limit 1
+;
