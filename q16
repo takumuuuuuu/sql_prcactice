@@ -1,0 +1,12 @@
+with base as (select product_id
+              , sum(quantity) as sum_quantity
+              , sum(revenue) as sum_revenue
+              , sum(revenue)/sum(quantity) as avg_unit_price
+             from sample.sales
+             group by product_id)
+
+select *, (select avg(avg_unit_price) from base)
+from base 
+where avg_unit_price > (select avg(avg_unit_price) from base)
+order by avg_unit_price desc
+;
