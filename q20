@@ -1,0 +1,8 @@
+select  (select sum(quantity) * (select avg(revenue)
+                                 from sample.sales
+                                 where is_proper is true and quantity = 1 and product_id = 1)
+         from sample.sales
+         where product_id = 1 ) - sum(revenue)
+from sample.sales
+where product_id = 1
+;
