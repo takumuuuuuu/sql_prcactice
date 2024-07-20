@@ -1,0 +1,7 @@
+select product_id
+, cast(round(sum(revenue), -3) as int64) as sum_revenue
+from sample.sales
+group by product_id
+order by sum(revenue) desc
+limit 5
+;
