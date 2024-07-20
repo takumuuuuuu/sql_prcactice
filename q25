@@ -1,0 +1,12 @@
+with master as (select name
+                , instr(name, " ") as place_of_space
+                from sample.customers)
+
+select name
+, first_name
+from (select name  
+      , substr(name, place_of_space + 1) as first_name
+      , regexp_contains(name, r".川 ..子") as flag
+      from master)
+where flag is true
+;
