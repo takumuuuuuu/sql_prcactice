@@ -1,0 +1,12 @@
+with master as (select name
+                , birthday
+                , date_diff(date "2019-12-31", birthday, year) as age
+                from sample.customers
+                where birthday is not null)
+
+select concat(name, if(age >= 50, "さま", "さん")) as name_with_keisho
+, age
+, birthday 
+from master
+where name like "%美馬%" or name like "%森村%"
+;
