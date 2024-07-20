@@ -1,0 +1,10 @@
+with master as (select name
+                , instr(name, " ") as place_of_space
+                from sample.customers)
+
+select name  
+, substr(name, 1, place_of_space - 1) as familiy_name
+, substr(name, place_of_space + 1) as first_name
+from master
+limit 5
+;
