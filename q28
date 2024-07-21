@@ -1,0 +1,19 @@
+with master as (
+  select datetime_trunc(date_time, month) as month
+, product_id
+, sum(revenue) as sum_revenue_product
+from sample.sales
+group by 1, 2
+order by 1)
+
+select format_datetime("%Y-%m", month) as year_month
+, product_id
+, monthly_revenue_share
+from (
+select *
+, sum_revenue_product / sum(sum_revenue_product) over (partition by month rows between unbounded preceding and unbounded following) as monthly_revenue_share
+from master 
+order by month, product_id)
+where monthly_revenue_share > 0.4
+order by  monthly_revenue_share desc
+;
