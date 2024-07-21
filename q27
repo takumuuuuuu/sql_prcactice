@@ -1,0 +1,8 @@
+select *
+from(select product_category
+     , product_name
+     , cost
+     , rank() over (partition by product_category order by cost desc) as cost_rank
+     from sample.products)
+where cost_rank <=3
+;
