@@ -1,0 +1,4 @@
+select date_time as oldest_datetime
+from sample.sales
+order by date_time asc
+limit 1;
