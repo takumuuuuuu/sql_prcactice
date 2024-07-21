@@ -1,0 +1,6 @@
+select order_id
+, user_id
+, revenue
+from sample.sales
+order by revenue desc
+limit 1;
