@@ -1,0 +1,13 @@
+with master as (
+select *
+, first_value(product_id) over (partition by user_id order by date_time, product_id) as first_purchase_product
+from sample.sales)
+
+select first_purchase_product
+, count(distinct user_id) as numer_of_users
+from master
+where product_id = first_purchase_product
+group by 1
+order by 2 desc
+limit 5
+;
