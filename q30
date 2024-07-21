@@ -1,0 +1,18 @@
+with master as (
+select cid, session_count, page
+, first_value(page) over (partition by cid, session_count order by date_time rows between unbounded preceding and unbounded following) as first_page
+, last_value(page) over (partition by cid, session_count order by date_time rows between unbounded preceding and unbounded following) as last_page
+from sample.web_log
+)
+
+select  concat(l_page, "->", e_page) as landing_and_exit,
+count(*) as session
+from (select max(first_page) as l_page, max(last_page) as e_page
+      from master
+      group by cid, session_count
+      having count(*) > 1 )
+group by 1
+order by 2 desc
+limit 5
+;
+
