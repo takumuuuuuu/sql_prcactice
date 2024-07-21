@@ -1,0 +1,12 @@
+with master as (select datetime_trunc(date_time, month) as month
+                , sum(revenue) as sum_revenue_month
+                from sample.sales
+                group by 1
+                order by 1 asc)
+
+select format_datetime("%Y", month) as year
+, max(sum_revenue_month) - min(sum_revenue_month) as hani
+from master
+group by 1
+order by 1
+;
