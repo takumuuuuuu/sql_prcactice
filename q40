@@ -1,0 +1,6 @@
+select birthday
+from sample.customers
+where birthday is not null
+order by birthday asc
+limit 1
+;
