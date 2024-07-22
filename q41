@@ -1,0 +1,4 @@
+select var_pop(cost) as var_cost
+from sample.products
+where product_category <> "ゼリー"
+;
