@@ -1,0 +1,5 @@
+select format_datetime("%F", date_time) as newest_date
+from sample.sales 
+order by date_time desc
+limit 1
+;
