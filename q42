@@ -1,0 +1,6 @@
+select user_id
+from sample.sales
+where mod(order_id, 3) = 0 and mod(order_id, 7) = 0
+order by user_id asc
+limit 1
+;
