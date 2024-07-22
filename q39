@@ -1,0 +1,6 @@
+select date_time
+from sample.sales
+where is_proper is false
+order by date_time asc
+limit 1
+;
