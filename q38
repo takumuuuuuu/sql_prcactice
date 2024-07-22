@@ -1,0 +1,6 @@
+select date_time
+from sample.web_log
+where media = "cpc"
+order by date_time asc
+limit 1
+;
