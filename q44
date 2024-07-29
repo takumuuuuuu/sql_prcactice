@@ -1,0 +1,6 @@
+select *
+from sample.customers
+where name like "%子" and birthday is not null
+order by birthday asc
+limit 1
+;
