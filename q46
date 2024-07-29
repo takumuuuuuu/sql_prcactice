@@ -1,0 +1,5 @@
+elect *
+from sample.customers
+where prefecture in ("福岡","佐賀","長崎") and is_premium is true
+order by user_id asc
+;
