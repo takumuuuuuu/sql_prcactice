@@ -1,0 +1,4 @@
+select  user_id, name 
+from sample.customers
+where substr(name, instr(name, " ") - 1, 1) = "山" and gender = 1
+;
