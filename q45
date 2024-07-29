@@ -1,0 +1,4 @@
+select *
+from sample.customers
+where format_date("%m-%d", birthday) = format_date("%m-%d", register_date)
+;
