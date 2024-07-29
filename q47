@@ -1,0 +1,6 @@
+select *
+from sample.sales
+where format_datetime("%Y-%m-%d",date_time) between "2017-02-01" and "2017-02-10"
+order by revenue desc
+limit 1
+;
