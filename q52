@@ -1,0 +1,5 @@
+select date_diff(date "2019-12-31", birthday, year) as youngest_age
+from sample.customers
+where birthday is not null
+order by birthday asc
+;
