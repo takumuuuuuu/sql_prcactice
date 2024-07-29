@@ -1,0 +1,5 @@
+select concat(product_category, "-", product_name) as cat_prod, cost
+from sample.products
+order by cost desc
+limit 3
+;
