@@ -1,0 +1,4 @@
+select name, birthday, register_date
+from sample.customers
+where birthday is null and register_date is not null
+;
