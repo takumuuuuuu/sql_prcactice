@@ -1,0 +1,6 @@
+select user_id, name, birthday
+from sample.customers
+where extract(dayofweek from birthday) = 2
+order by birthday asc
+limit 1
+;
