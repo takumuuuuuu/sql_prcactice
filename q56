@@ -1,0 +1,6 @@
+select name, birthday
+from sample.customers 
+where regexp_contains(name, r"^川") is true
+order by birthday asc
+limit 3
+;
