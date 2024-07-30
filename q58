@@ -1,0 +1,8 @@
+select case 
+           when gender = 1 then concat(name, "様")
+           when gender = 2 then concat(name, "さま")
+           else name
+        end as name_sama   
+from sample.customers
+order by register_date desc
+limit 5;
