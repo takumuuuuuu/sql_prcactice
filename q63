@@ -1,0 +1,6 @@
+select concat(product_category, "-", product_name) as cat_name
+, length(concat(product_category, "-", product_name)) as length
+from sample.products
+order by length desc
+limit 3
+;
