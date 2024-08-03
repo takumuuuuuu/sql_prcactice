@@ -1,0 +1,7 @@
+select page
+, substr(page, instr(page, "prod_id_") + 8, instr(page, "/", 1, 3) - instr(page, "prod_id_") - 8) as product_id
+from sample.web_log 
+where regexp_contains(page, "prod_id_")
+order by date_time asc
+limit 5
+;
