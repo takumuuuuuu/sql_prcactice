@@ -1,0 +1,8 @@
+select name
+, prefecture
+, register_date
+, date_add(register_date, interval 10 year) as aniversary10
+from sample.customers 
+where prefecture = "千葉" and register_date is not null and gender = 1
+order by register_date
+;
