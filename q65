@@ -1,0 +1,10 @@
+select user_id
+, name
+, birthday
+, register_date
+, date_diff(register_date, birthday, year) as register_age
+from sample.customers
+where  date_diff(register_date, birthday, year) is not null 
+order by register_age
+limit 1
+;
