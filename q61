@@ -1,0 +1,7 @@
+select page
+, replace(page, "?sys=abc123", "") as page_without_parameter 
+from sample.web_log
+where regexp_contains(page, "/?sys=abc123") = true
+order by date_time
+limit 3
+;
