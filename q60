@@ -1,0 +1,5 @@
+select user_id, name
+from sample.customers
+where length(substr(name, 1,  instr(name, " ") - 1)) = 3
+and length(substr(name, instr(name, " ") + 1)) = 3
+;
