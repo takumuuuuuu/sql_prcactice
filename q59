@@ -1,0 +1,5 @@
+select product_name
+,  regexp_replace(product_name, r"ゼリー$", "ジュレ") as modifyed_name
+from sample.products
+where regexp_contains(product_name, "ゼリー")= true
+;
