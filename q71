@@ -1,0 +1,3 @@
+select sum(quantity) as sum_quantity
+from sample.sales
+;
