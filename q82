@@ -1,0 +1,4 @@
+select count(product_id) as items
+from sample.products
+where cost <= 300
+;
