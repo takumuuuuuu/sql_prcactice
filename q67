@@ -1,0 +1,3 @@
+select avg(cost) as avg_cost
+from sample.products
+;
