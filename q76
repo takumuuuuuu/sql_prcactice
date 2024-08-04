@@ -1,0 +1,3 @@
+select count(distinct product_id) as items
+from sample.sales
+;
