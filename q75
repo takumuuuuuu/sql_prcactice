@@ -1,0 +1,3 @@
+select max(date_time)
+from sample.web_log
+; 
