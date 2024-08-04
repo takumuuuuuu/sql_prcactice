@@ -1,0 +1,3 @@
+select count(distinct media) as number_of_media
+from sample.web_log
+;
