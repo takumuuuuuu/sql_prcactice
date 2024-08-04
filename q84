@@ -1,0 +1,3 @@
+select date_diff(max(date_time), min(date_time), day) as days
+from sample.web_log
+;
