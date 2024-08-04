@@ -1,0 +1,3 @@
+select count(*) as page_view
+from sample.web_log
+;
