@@ -1,0 +1,4 @@
+select count(page) as pv_new_visit
+from sample.web_log
+where session_count = 1
+;
