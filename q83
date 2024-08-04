@@ -1,0 +1,3 @@
+select sum(revenue) / count(distinct user_id) as avg_rev_by_user
+from sample.sales 
+;
