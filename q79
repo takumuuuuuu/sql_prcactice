@@ -1,0 +1,4 @@
+select sum(revenue) as sum_revenue_1
+from sample.sales
+where product_id = 1
+;
