@@ -1,0 +1,3 @@
+select max(revenue) as max_revenue
+from sample.sales
+;
