@@ -1,0 +1,4 @@
+select count(user_id) as users
+from sample.customers 
+where prefecture <> "東京"
+;
