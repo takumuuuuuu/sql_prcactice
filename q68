@@ -1,0 +1,3 @@
+select max(cost) as max_cost 
+from sample.products
+;
