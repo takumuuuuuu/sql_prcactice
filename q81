@@ -1,0 +1,3 @@
+select count(distinct product_category) as categories
+from sample.products
+;
