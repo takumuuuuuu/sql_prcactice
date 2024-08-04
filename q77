@@ -1,0 +1,3 @@
+select sum(revenue) / 1.1 as revenue_without_tax
+from sample.sales 
+;
