@@ -1,0 +1,6 @@
+select device
+, count(page) as pageviews
+from sample.web_log  
+group by device
+order by pageviews desc
+;
