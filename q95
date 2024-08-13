@@ -1,0 +1,4 @@
+select sum(revenue) as sum_revenue_2019
+from sample.sales
+where format_datetime("%Y", date_time) = "2019"
+;
