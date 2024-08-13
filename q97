@@ -1,0 +1,4 @@
+select count(user_id) as uers
+from sample.customers
+where birthday is null and register_date is null
+;
