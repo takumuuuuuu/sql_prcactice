@@ -1,0 +1,7 @@
+select page
+, count(page) as pageviews
+from sample.web_log
+group by page
+order by pageviews desc
+limit 5
+;
