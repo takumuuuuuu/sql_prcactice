@@ -1,0 +1,4 @@
+select count(user_id) as users 
+from sample.customers
+where register_date is null
+;
