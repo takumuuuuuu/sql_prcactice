@@ -1,0 +1,4 @@
+select count(*) as pageviews_8
+from sample.web_log
+where page like "/prod/prod_id_8/%"
+;
