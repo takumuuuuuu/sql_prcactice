@@ -1,0 +1,4 @@
+select count(page) as pageviews_prod
+from sample.web_log 
+where regexp_contains(page, r"/prod/prod_id_\d\d?/$") 
+;
