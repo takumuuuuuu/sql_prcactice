@@ -1,0 +1,4 @@
+select sum(quantity) as sum_qty_14_15 
+from sample.sales
+where product_id in (14,15)
+;
