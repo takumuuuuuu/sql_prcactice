@@ -1,0 +1,6 @@
+select cost
+, count(cost) as number_of_products
+from sample.products 
+where cost < 500
+group by cost
+;
