@@ -1,0 +1,3 @@
+select  count(distinct date_trunc(date_time, day) ) as unique_days
+from sample.web_log
+;
