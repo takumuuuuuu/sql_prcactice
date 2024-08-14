@@ -1,0 +1,7 @@
+select format_datetime("%H", date_time) as hour
+, count(page) as pageviews
+from sample.web_log 
+group by hour 
+order by pageviews desc 
+limit 3
+;
