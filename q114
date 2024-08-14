@@ -1,0 +1,6 @@
+select session_count 
+, count(distinct cid) as users
+from sample.web_log
+where device = "mobile" and session_count = 1
+group by session_count
+;
