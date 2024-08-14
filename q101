@@ -1,0 +1,7 @@
+select prefecture
+, count(user_id) as users
+from sample.customers
+group by prefecture
+order by users desc
+limit 3
+;
