@@ -1,0 +1,4 @@
+select sum(revenue) as revenue_5_2019
+from sample.sales
+where product_id = 5 and extract(year from date_time) = 2019
+;
