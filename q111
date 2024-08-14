@@ -1,0 +1,7 @@
+select  format_datetime("%Y-%m-%d", date_time) as date
+,count(page) as pageviews
+from sample.web_log 
+group by date
+order by pageviews desc
+limit 3
+;
