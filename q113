@@ -1,0 +1,7 @@
+select media
+, count(page) as pageviews
+from sample.web_log 
+where page not like "/prod/%"
+group by media
+order by pageviews desc
+;
