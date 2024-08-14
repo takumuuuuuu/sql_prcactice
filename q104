@@ -1,0 +1,13 @@
+select case when extract(year from date_time) = 2017 and format_datetime("%T", date_time) > "11:59:59" then "2017-PM"
+            when extract(year from date_time) = 2017 and format_datetime("%T", date_time) <= "11:59:59" then "2017-AM"
+            when extract(year from date_time) = 2018 and format_datetime("%T", date_time) > "11:59:59" then "2018-PM"
+            when extract(year from date_time) = 2018 and format_datetime("%T", date_time) <= "11:59:59" then "2018-AM"
+            when extract(year from date_time) = 2019 and format_datetime("%T", date_time) > "11:59:59" then "2019-PM"
+            when extract(year from date_time) = 2019 and format_datetime("%T", date_time) <= "11:59:59" then "2019-AM" 
+        end as sales_time
+, sum(revenue) as sum_rev        
+from sample.sales
+where extract(year from date_time) between 2017 and 2019
+group by sales_time
+order by sales_time
+;
