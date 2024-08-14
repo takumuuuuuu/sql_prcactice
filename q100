@@ -1,0 +1,4 @@
+select count(user_id) as users
+from sample.customers
+where birthday between "1980-01-01" and "1989-12-31"
+;
