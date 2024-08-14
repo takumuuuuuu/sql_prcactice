@@ -1,0 +1,5 @@
+select extract(year from date_time) as year
+, round(avg(quantity), 2) as avg_qty
+from sample.sales 
+group by year
+;
