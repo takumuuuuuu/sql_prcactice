@@ -1,0 +1,6 @@
+select extract(year from date_time) as year
+, count(distinct user_id) as users
+from sample.sales
+group by year
+order by year
+;
