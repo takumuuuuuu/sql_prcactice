@@ -1,0 +1,3 @@
+select round(sum(revenue) / count(distinct format_datetime("%F", date_time)), -2) as avg_rev_by_day
+from sample.sales
+;
