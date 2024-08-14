@@ -1,0 +1,4 @@
+select count(user_id) as users
+from sample.customers
+where register_date between "2019-01-01" and "2019-03-31"
+;
