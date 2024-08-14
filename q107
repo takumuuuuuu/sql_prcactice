@@ -1,0 +1,6 @@
+select  product_category
+, cast(sum(cost) / count(product_id) as int64) as avg_cost
+from sample.products 
+group by product_category
+order by avg_cost
+;
