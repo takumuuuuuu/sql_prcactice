@@ -1,0 +1,4 @@
+select avg(date_diff(date "2019-12-31", birthday, year)) as avg_age 
+from sample.customers
+where prefecture = "千葉" and gender = 2
+;
