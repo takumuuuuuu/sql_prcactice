@@ -1,0 +1,5 @@
+select sum(case when product_id = 1 and quantity = 1 then 2000
+            else revenue
+           end) as modifies_sum_rev
+from sample.sales
+;
