@@ -1,0 +1,7 @@
+select format_datetime("%A", date_time) as day_of_week
+, format_datetime("%H", date_time) as hour 
+, count(page) as pageviews 
+from sample.web_log 
+group by day_of_week, hour
+having pageviews >= 60
+;
