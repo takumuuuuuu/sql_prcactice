@@ -1,0 +1,7 @@
+select substr(name, 1, strpos(name, " ") - 1)  as last_name
+, count(distinct user_id) as users
+from sample.customers
+where gender = 2
+group by last_name
+having users >= 3
+;
