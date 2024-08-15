@@ -1,0 +1,7 @@
+select format_datetime("%B", date_time) as month
+, count(distinct concat(cid,session_count)) as session
+from sample.web_log
+group by month
+order by session desc
+limit 3
+;
