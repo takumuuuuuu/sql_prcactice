@@ -1,0 +1,8 @@
+select prefecture
+,  count(distinct user_id) as premium_users
+from sample.customers
+where is_premium = true
+group by prefecture
+order by premium_users desc
+limit 3
+;
