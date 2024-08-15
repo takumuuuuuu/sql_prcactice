@@ -1,0 +1,8 @@
+select prefecture
+, count(distinct user_id) as users
+from sample.customers
+where register_date is null
+group by prefecture
+order by users desc
+limit 3
+;
