@@ -1,0 +1,6 @@
+select sum(quantity) as sum_qty 
+from sample.sales 
+inner join sample.customers 
+using(user_id) 
+where gender = 2 
+;
