@@ -1,0 +1,9 @@
+select prefecture
+, sum(quantity) as sum_qty 
+from sample.sales 
+inner join sample.customers 
+using (user_id)
+group by prefecture
+order by sum_qty 
+limit 3
+; 
