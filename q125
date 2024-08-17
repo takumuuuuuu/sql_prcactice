@@ -1,0 +1,3 @@
+select count(distinct concat(cid, session_count)) as session 
+from sample.web_log 
+;
