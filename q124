@@ -1,0 +1,8 @@
+select name
+, sum(revenue) as sum_rev
+from sample.sales
+inner join sample.customers 
+using(user_id) 
+group by name
+order by sum_rev desc
+;
