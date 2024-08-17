@@ -1,0 +1,10 @@
+select case when cost <= 300 then "300以下"
+            when cost <= 600 then "301-600"
+            when cost <= 900 then "601-900"
+            else "901以上"
+       end as cost_category
+, count(distinct product_id) as number_of_products
+from sample.products 
+group by cost_category
+order by cost_category
+;
