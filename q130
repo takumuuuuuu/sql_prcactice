@@ -1,0 +1,9 @@
+with master as (select sum(revenue) as revenue 
+               from sample.sales 
+               group by user_id)
+
+select  max(revenue) as max_sum_rev
+, min(revenue) as min_sum_rev
+, avg(revenue) as avg_sum_rev 
+from master
+;
