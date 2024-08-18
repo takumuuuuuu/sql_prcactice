@@ -1,0 +1,12 @@
+select product_name
+, sum(revenue) as sum_rev 
+from sample.sales 
+left join sample.products   
+using(product_id) 
+left join sample.customers 
+using(user_id)  
+where prefecture = "東京" 
+group by product_name 
+order by sum_rev desc
+limit 3
+;
