@@ -1,0 +1,8 @@
+select date_diff("2019-12-31", birthday, year) as age
+, count(distinct user_id) as users 
+from sample.customers 
+where gender = 1
+group by age 
+order by users desc
+limit 3  
+;
