@@ -1,0 +1,12 @@
+with master as (select user_id, sum(revenue) as sum_rev 
+                from sample.sales 
+                group by user_id) 
+
+select prefecture
+, sum_rev 
+from master 
+left join sample.customers 
+using(user_id) 
+order by sum_rev desc  
+limit 1
+;              
