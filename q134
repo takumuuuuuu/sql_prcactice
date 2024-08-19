@@ -1,0 +1,15 @@
+with master as (
+select user_id
+, sum(revenue) as sum_rev
+from sample.sales 
+group by user_id
+)
+
+select date_diff("2019-12-31", birthday, year) as age
+, sum_rev 
+from sample.customers
+join  master 
+using (user_id) 
+where gender = 1 
+order by sum_rev desc 
+limit 1; 
