@@ -1,0 +1,10 @@
+with master as (
+select max(if(regexp_contains(page, "/cart/") = true, 1, 0)) as cart 
+, max(if(regexp_contains(page, "/thank_you/") = true, 1, 0)) as thank_you
+, concat(cid, "-", session_count) as session
+from sample.web_log
+group by session )
+
+select sum(thank_you) / sum(cart)
+from master
+;
