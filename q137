@@ -1,0 +1,7 @@
+select user_id
+from sample.sales 
+where format_datetime("%Y", date_time) <> "2019"
+group by user_id
+order by user_id 
+limit 10
+;
