@@ -1,0 +1,14 @@
+select case when format_datetime("%A", date_time) = "Sunday" then "1.Sunday"
+            when format_datetime("%A", date_time) = "Monday" then "2.Monday"
+            when format_datetime("%A", date_time) = "Tuesday" then "3.Tuesday"
+            when format_datetime("%A", date_time) = "Wednesday" then "4.Wednesday"
+            when format_datetime("%A", date_time) = "Thursday" then "5.Thursday"
+            when format_datetime("%A", date_time) = "Friday" then "6.Friday"
+            when format_datetime("%A", date_time) = "Saturday" then "7.Saturday"
+       end as day_of_week 
+, count(page) as sum_pv
+from sample.web_log 
+group by day_of_week 
+order by day_of_week
+;
+
