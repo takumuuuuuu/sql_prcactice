@@ -1,0 +1,9 @@
+select prefecture
+, sum(revenue) / sum(quantity) as avg_unit_price
+from sample.sales 
+inner join sample.customers 
+using (user_id) 
+group by prefecture
+order by avg_unit_price desc 
+limit 3
+;
