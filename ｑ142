@@ -1,0 +1,10 @@
+select gender
+, is_premium
+, sum(revenue) as sum_rev 
+from sample.sales 
+join sample.customers 
+using (user_id) 
+where prefecture = "東京"
+group by is_premium, gender
+order by gender, is_premium desc 
+;
