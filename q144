@@ -1,0 +1,10 @@
+select sum(revenue) as sum_rev 
+, product_id
+from sample.sales 
+join sample.customers 
+using(user_id)
+where date_diff("2019-12-31", birthday, year) >= 50
+group by product_id 
+order by sum_rev desc 
+limit 3
+;
