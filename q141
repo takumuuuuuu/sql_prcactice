@@ -1,0 +1,10 @@
+select date_diff("2019-12-31", birthday, year) as age 
+, sum(revenue) as sum_rev 
+from sample.sales 
+join sample.customers 
+using (user_id) 
+where birthday is not null
+group by age
+order by sum_rev desc
+limit 3 
+;
