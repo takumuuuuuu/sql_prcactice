@@ -1,0 +1,17 @@
+with master as (
+select case when prefecture in ("東京","埼玉","千葉","神奈川") then "東京圏"
+            when prefecture in ("大阪","京都","奈良","兵庫") then "大阪圏"
+            else null
+        end as area
+, user_id        
+from sample.customers            
+)
+
+select area
+, sum(revenue) as sum_rev 
+from sample.sales 
+inner join master
+using (user_id) 
+where area is not null
+group by area
+;
