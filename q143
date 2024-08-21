@@ -1,0 +1,15 @@
+with master as (
+select sum(revenue) as sum_rev
+, if(is_premium = true, "premium_users", "standard_users") as user_category
+, user_id
+from sample.sales 
+join sample.customers 
+using (user_id) 
+group by user_category, user_id 
+) 
+
+select max(sum_rev) as max_revenue_by_customer
+, user_category 
+from master 
+group by user_category
+;
