@@ -1,0 +1,25 @@
+with master as (
+select count(page) as pageviews
+, regexp_extract(page, r"/prod/prod_id_(\d\d?)") as number
+from sample.web_log  
+where regexp_contains(page, r"/prod/prod_id_\d\d?") is true
+group by number
+)
+, master2 as (
+select sum(quantity) as sum_qty
+, sum(revenue) as sum_rev 
+, product_id
+from sample.sales 
+group by product_id
+) 
+
+select product_id
+, sum_qty 
+, sum_rev 
+, pageviews 
+from master 
+inner join master2 
+on master.number = cast(master2.product_id as string) 
+order by pageviews desc
+limit 3
+;
