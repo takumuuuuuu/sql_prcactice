@@ -1,0 +1,11 @@
+with master as (
+select sum(revenue) / sum(quantity) as avg_unit_price_1
+from sample.sales 
+where product_id = 1
+)
+
+select avg(avg_unit_price_1) as avg_unit_price_1
+, sum(revenue) / sum(quantity) as avg_unit_price 
+, avg(avg_unit_price_1) - sum(revenue) / sum(quantity) as diff_percent
+from sample.sales 
+cross join master 
