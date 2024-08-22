@@ -1,0 +1,8 @@
+select if(gender = 1, "男性", "女性") as gender_cat
+, count(distinct order_id) as sum_orders
+from sample.sales 
+join sample.customers 
+using (user_id) 
+group by gender_cat
+order by sum_orders 
+;
