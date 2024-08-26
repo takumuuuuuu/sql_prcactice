@@ -1,0 +1,21 @@
+with master as (
+select user_id
+from sample.sales 
+where format_datetime("%Y", date_time) = "2017"
+intersect distinct 
+select user_id
+from sample.sales 
+where format_datetime("%Y", date_time) = "2018"
+intersect distinct 
+select user_id
+from sample.sales 
+where format_datetime("%Y", date_time) = "2019"
+) 
+
+select name
+from master 
+left join sample.customers 
+using (user_id) 
+order by birthday desc
+limit 3
+;
