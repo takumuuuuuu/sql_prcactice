@@ -1,0 +1,31 @@
+with master1 as (
+select case when datetime_trunc(date_time, quarter) = "2019-01-01T00:00:00" then 1
+            when datetime_trunc(date_time, quarter) = "2019-04-01T00:00:00" then 2
+            when datetime_trunc(date_time, quarter) = "2019-07-01T00:00:00" then 3
+            when datetime_trunc(date_time, quarter) = "2019-10-01T00:00:00" then 4
+        end as quater 
+, sum(revenue) as sum_rev_2019           
+from sample.sales 
+where format_datetime("%Y", date_time) = "2019"
+group by quater
+)
+, master2 as (
+select case when datetime_trunc(date_time, quarter) = "2018-01-01T00:00:00" then 1
+            when datetime_trunc(date_time, quarter) = "2018-04-01T00:00:00" then 2
+            when datetime_trunc(date_time, quarter) = "2018-07-01T00:00:00" then 3
+            when datetime_trunc(date_time, quarter) = "2018-10-01T00:00:00" then 4
+        end as quater 
+, sum(revenue) as sum_rev_2018          
+from sample.sales 
+where format_datetime("%Y", date_time) = "2018"
+group by quater
+)
+
+select sum_rev_2019/sum_rev_2018 as sum_rev
+, quater
+from master1
+join master2
+using(quater)
+order by quater asc
+;
+
