@@ -1,0 +1,11 @@
+select sum(if(format_datetime("%Y", date_time) = "2017", revenue, 0)) as sum_rev_17
+, sum(if(format_datetime("%Y", date_time) = "2018", revenue, 0)) as sum_rev_18
+, sum(if(format_datetime("%Y", date_time) = "2019", revenue, 0)) as sum_rev_19
+, user_id
+, sum(revenue) as ttl_sum_rev
+from sample.sales 
+group by user_id
+having sum_rev_19 > sum_rev_18 
+and sum_rev_18 > sum_rev_17 
+order by ttl_sum_rev desc
+limit 3
