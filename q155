@@ -1,0 +1,31 @@
+select prefecture 
+from sample.sales 
+inner join sample.customers
+using (user_id) 
+where format_datetime("%Y", date_time) = "2017"
+group by prefecture
+having sum(revenue) / count(distinct order_id) <= 2000
+
+intersect distinct 
+
+select prefecture 
+from sample.sales 
+inner join sample.customers
+using (user_id) 
+where format_datetime("%Y", date_time) = "2018"
+group by prefecture
+having sum(revenue) / count(distinct order_id) >= 6000
+
+intersect distinct 
+
+select prefecture 
+from sample.sales 
+inner join sample.customers
+using (user_id) 
+where format_datetime("%Y", date_time) = "2019"
+group by prefecture
+having sum(revenue) / count(distinct order_id) >= 6000
+;
+
+
+
