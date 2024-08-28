@@ -1,0 +1,14 @@
+with master as (
+select sum(revenue) as sum_rev
+from sample.sales 
+)
+
+select order_id
+, product_id
+, revenue
+, revenue / sum_rev as revenue_percentage
+from sample.sales 
+cross join master
+order by revenue desc
+limit 3
+;
