@@ -1,0 +1,8 @@
+with master as (
+  select date_diff("2019-12-31", birthday, year) as age
+  from sample.customers 
+)
+
+select round(avg(age), 1) as avg_age
+from master
+;
