@@ -1,0 +1,4 @@
+select count(distinct user_id) as users 
+from sample.sales 
+where product_id = 7
+;
