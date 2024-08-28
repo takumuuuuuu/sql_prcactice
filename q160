@@ -1,0 +1,8 @@
+select a.name
+, a.birthday
+from sample.customers as a
+inner join sample.customers as b
+on a.birthday = b.birthday
+where a.user_id <> b.user_id
+order by a.birthday 
+;
