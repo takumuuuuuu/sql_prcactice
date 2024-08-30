@@ -1,0 +1,11 @@
+with master as (
+select avg(revenue) as avg_rev
+from sample.sales 
+)
+
+select sum(quantity) as sum_qty_over_avg_rev 
+from sample.sales 
+cross join master 
+where revenue > avg_rev 
+and is_proper is true
+;
