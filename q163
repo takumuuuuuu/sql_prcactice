@@ -1,0 +1,13 @@
+with master as (
+select avg(revenue) as avg_rev
+from sample.sales 
+where is_proper is true
+)
+
+
+select count(order_id) as orders_over_avg_rev
+from sample.sales 
+cross join master
+where is_proper is true 
+and revenue > avg_rev 
+;
