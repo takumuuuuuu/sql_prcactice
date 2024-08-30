@@ -1,0 +1,10 @@
+with master as (
+select sum(revenue) as sum_rev 
+from sample.sales 
+group by order_id 
+having min(is_proper) is true
+)
+
+select sum(sum_rev) as sum_rev
+from master
+;
