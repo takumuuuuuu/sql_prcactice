@@ -1,0 +1,4 @@
+select stddev_pop(if(format_datetime("%Y", date_time) = "2017", revenue, null)) as revnue_stddev
+, stddev_pop(revenue) as revenue_stddev
+from sample.sales 
+;
