@@ -1,0 +1,7 @@
+select prefecture
+, round(avg(date_diff("2019-12-31", birthday, year)), 1) as avg_age
+from sample.customers 
+group by prefecture 
+order by avg_age desc
+limit 3
+;
