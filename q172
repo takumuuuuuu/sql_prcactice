@@ -1,0 +1,7 @@
+select substr(name, instr(name, " ") + 1) as first_name
+, count(user_id) as users
+from sample.customers 
+where gender = 2
+group by substr(name, instr(name, " ") + 1)
+having count(user_id) >= 3
+;
