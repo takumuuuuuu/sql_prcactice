@@ -1,0 +1,19 @@
+with master as (
+select *
+from sample.sales 
+cross join 
+(select sum(revenue) as sum_rev 
+from sample.sales 
+)
+)
+
+select prefecture
+, sum(revenue) as sum_rev
+, sum(revenue) / avg(sum_rev) as percent_sum_rev
+from master
+join sample.customers 
+using (user_id) 
+group by prefecture
+order by sum_rev desc
+limit 3
+;
