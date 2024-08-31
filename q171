@@ -1,0 +1,10 @@
+with master as (
+select avg(date_diff("2019-12-31", birthday, year)) as avg_age
+from sample.customers 
+)
+
+select avg(date_diff("2019-12-31", birthday, year))
+from sample.customers 
+cross join master 
+where date_diff("2019-12-31", birthday, year) > avg_age
+;
