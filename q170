@@ -1,0 +1,3 @@
+select sum(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) as cv
+from sample.web_log
+ 
