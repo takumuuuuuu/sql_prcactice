@@ -1,0 +1,10 @@
+select count(distinct user_id) as users
+from (
+select order_id
+from sample.sales 
+group by order_id 
+having count(product_id) > 1 
+)
+left join sample.sales
+using(order_id)
+;
