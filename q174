@@ -1,0 +1,11 @@
+with master as (
+select user_id
+from sample.sales
+where product_id = 1 
+
+intersect distinct 
+
+select user_id
+from sample.sales 
+where product_id = 2
+)
