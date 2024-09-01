@@ -1,0 +1,15 @@
+with master as (
+select order_id
+, max(user_id) as user_id 
+from sample.sales 
+group by order_id
+having count(product_id) > count(distinct product_id)
+)
+
+select user_id 
+, name 
+from master
+left join sample.customers
+using(user_id)
+order by order_id
+;
