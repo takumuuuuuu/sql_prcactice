@@ -1,0 +1,8 @@
+select user_id
+, sum(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) as cv_by_user
+from sample.web_log
+where user_id is not null
+group by user_id
+having cv_by_user >= 2
+order by user_id 
+;
