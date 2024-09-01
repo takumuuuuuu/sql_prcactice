@@ -1,0 +1,18 @@
+with master as (
+select max(sum_rev) as max_sum_rev
+from (
+select sum(revenue) as sum_rev
+from sample.sales 
+group by order_id
+)
+)
+
+select order_id
+, sum(revenue) as sum_rev
+, sum(revenue) / avg(max_sum_rev) as percentage_against_max_revenue
+from sample.sales 
+cross join master
+group by order_id
+order by percentage_against_max_revenue desc
+limit 5
+;
