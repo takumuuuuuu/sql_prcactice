@@ -1,0 +1,3 @@
+select round(count(page) / count(distinct concat(cid, session_count)), 1) as pv_per_session
+from sample.web_log
+;
