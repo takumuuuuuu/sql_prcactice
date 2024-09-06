@@ -1,0 +1,6 @@
+select  device
+, sum(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) as cv
+, count(distinct concat(cid, session_count)) as session
+, round(sum(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) / count(distinct concat(cid, session_count)), 4) as cvr
+from sample.web_log
+group by device
