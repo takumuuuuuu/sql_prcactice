@@ -1,0 +1,6 @@
+select sum(revenue - cost * quantity)  as sum_profit
+, sum(revenue - cost * quantity) / sum(revenue)
+from sample.sales 
+left join sample.products 
+using(product_id)
+;
