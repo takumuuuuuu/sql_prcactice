@@ -1,0 +1,12 @@
+select cv
+, count(distinct cid) as users
+from 
+(
+select sum(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) as cv
+, cid
+from sample.web_log
+group by cid
+)
+group by cv
+order by cv desc
+;
