@@ -1,0 +1,13 @@
+select  if(gender = 1, "男性", "女性") as gender_name
+, round(stddev_pop(sum_rev), 0) as std_dev
+from (
+select sum(revenue) as sum_rev
+, user_id
+from sample.sales 
+group by user_id
+)
+left join sample.customers 
+using(user_id) 
+where gender is not null
+group by gender_name
+;
