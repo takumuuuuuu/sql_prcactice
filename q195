@@ -1,0 +1,10 @@
+select user_id
+, sum(revenue - cost * quantity) as profit 
+, sum(revenue - cost * quantity) / sum(revenue) as profit_rate
+from sample.sales 
+left join sample.products  
+using(product_id)
+group by user_id 
+order by profit_rate
+limit 1
+;
