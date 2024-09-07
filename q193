@@ -1,0 +1,16 @@
+with master as (
+select user_id
+from sample.sales 
+group by user_id
+)
+, master2 as (
+select user_id 
+from sample.web_log
+group by user_id  
+)
+
+select count(distinct master2.user_id) / count(distinct master.user_id) as web_usage_rate
+from master
+left join master2
+using(user_id)
+;
