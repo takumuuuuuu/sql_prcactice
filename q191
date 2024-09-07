@@ -1,0 +1,15 @@
+with master as (
+select sum(revenue) as sum_rev
+, user_id
+from sample.sales 
+group by user_id
+)
+
+select if(gender = 1, "男性", "女性") as gender_name
+, max(sum_rev) max_sum_rev
+from master
+left join sample.customers 
+using(user_id)
+where gender is not null
+group by gender_name
+;
