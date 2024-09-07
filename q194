@@ -1,0 +1,9 @@
+select product_category
+, sum(revenue - quantity * cost) as profit
+, sum(revenue - quantity * cost) / sum(revenue) as profit_rate
+from sample.sales 
+left join sample.products
+using(product_id)
+group by product_category
+order by profit_rate desc
+;
