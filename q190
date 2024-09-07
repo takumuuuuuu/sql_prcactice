@@ -1,0 +1,9 @@
+select order_id
+, sum(revenue - cost * quantity) as profit_by_order
+from sample.sales 
+left join sample.products 
+using(product_id) 
+group by order_id
+order by profit_by_order desc
+limit 1
+; 
