@@ -1,0 +1,23 @@
+with master1 as (
+select user_id
+, format_datetime("%Y", date_time) as year_2 
+, date_time
+from sample.sales 
+where product_id = 2
+)
+, master2 as (
+select user_id
+, format_datetime("%Y", date_time) as year_15
+, date_time
+from sample.sales 
+where product_id = 15
+)
+
+select user_id
+from master1
+inner join master2
+using(user_id) 
+where year_2 = year_15
+and master2.date_time > master1.date_time
+order by user_id
+;
