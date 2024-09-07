@@ -1,0 +1,11 @@
+select view_diet_page_session
+, sum(cv_count) / count(cv_count) as cvr
+from (
+select concat(cid, session_count) as session 
+, max(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) as cv_count
+, max(regexp_contains(page, "/special/diet/")) as view_diet_page_session
+from sample.web_log
+group by session 
+)
+group by view_diet_page_session
+;
