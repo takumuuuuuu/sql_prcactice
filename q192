@@ -1,0 +1,7 @@
+select round(sum(session_duration) / count(distinct session), 1) as avg_session_duration
+from (
+select datetime_diff(max(date_time), min(date_time), second)  as session_duration
+, concat(cid, session_count) as session
+from sample.web_log 
+group by session 
+)
