@@ -1,0 +1,13 @@
+with master as (
+select product_id 
+, sum(revenue) / sum(quantity) as unit_proper_price
+from sample.sales 
+where is_proper is true
+group by product_id
+)
+
+select sum(unit_proper_price * quantity - revenue)  as sum_discount
+from sample.sales  
+left join master 
+using(product_id) 
+;
