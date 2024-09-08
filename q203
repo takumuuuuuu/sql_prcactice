@@ -1,0 +1,22 @@
+with master as  (
+select concat(2017, "-", format_datetime("%Q", date_time)) as quater
+, max(format_datetime("%Q", date_time)) as quater_num
+, sum(revenue) as sum_rev
+from sample.sales 
+where format_datetime("%Y", date_time) = "2017"
+group by quater
+order by quater
+)
+
+select master1.quater as quater
+, master1.sum_rev as sum_rev
+,  master1.sum_rev + ifnull(master2.sum_rev, 0) + ifnull(master3.sum_rev, 0) + ifnull(master4.sum_rev, 0) as accum_sum_rev
+from master as master1
+left join master as master2
+on cast(master1.quater_num as int64) = cast(master2.quater_num as int64) + 1
+left join master as master3
+on cast(master1.quater_num as int64) = cast(master3.quater_num as int64) + 2
+left join master as master4
+on cast(master1.quater_num as int64) = cast(master4.quater_num as int64) + 3
+order by master1.quater
+;
