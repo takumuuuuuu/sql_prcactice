@@ -1,0 +1,8 @@
+select corr(session, cv) as crrelation
+from (
+select count(distinct concat(cid, session_count)) as session
+, sum(if(regexp_contains(page, "/thank_you/") is true, 1, 0)) as cv
+from sample.web_log
+group by format_datetime("%Y-%m", date_time) 
+)
+;
