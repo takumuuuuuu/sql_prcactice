@@ -1,0 +1,15 @@
+select product_name
+, sum(revenue) / sum(quantity) as avg_rev
+, avg(cost) as unit_cost
+, sum(quantity) as sum_qty
+, sum(revenue) as sum_rev
+, sum(cost * quantity) as sum_cost
+, sum(revenue) - sum(cost * quantity) as sum_profit
+, (sum(revenue) - sum(cost * quantity)) / sum(revenue) as avg_profit_rate
+from sample.sales 
+left join sample.products 
+using(product_id)
+group by product_name
+order by avg_profit_rate desc
+limit 3
+;
