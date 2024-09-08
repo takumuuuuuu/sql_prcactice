@@ -1,0 +1,24 @@
+with master1 as (
+select cid
+, min(date_time) as first_visit_day
+from sample.web_log
+group by cid
+)
+, master2 as (
+select cid
+, min(date_time) as first_cv_day
+from sample.web_log  
+where regexp_contains(page, "/thank_you/") is true
+group by cid
+)
+
+select cid
+, format_datetime("%F", first_visit_day) as first_visit_day
+, format_datetime("%F", first_cv_day) as first_cv_day
+, datetime_diff(first_cv_day, first_visit_day, day) as cv_leadtime_days
+from master1
+join master2
+using(cid)
+order by first_cv_day desc
+limit 1
+;
