@@ -1,0 +1,23 @@
+with master1 as (
+select format_datetime("%B", date_time) as month
+, sum(revenue) as sum_rev_2018
+from sample.sales
+where format_datetime("%Y", date_time) = "2018"
+group by month
+)
+, master2 as (
+select format_datetime("%B", date_time) as month
+, sum(revenue) as sum_rev_2017
+from sample.sales
+where format_datetime("%Y", date_time) = "2017"
+group by month
+)
+
+select *
+, round(sum_rev_2018 / sum_rev_2017, 2) as change
+from master1
+join master2 
+using(month)
+order by change desc
+limit 3 
+;
