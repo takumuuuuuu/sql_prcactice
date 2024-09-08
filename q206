@@ -1,0 +1,15 @@
+with master as (
+select user_id
+from sample.web_log
+group by user_id  
+)
+
+
+select if(master.user_id is not null, "Web利用あり顧客", "Web利用なし顧客") as web_usage
+, sum(revenue) as sum_rev
+, sum(revenue) / count(distinct sales.user_id) as avg_rev_by_user
+from sample.sales as sales
+left join master
+on sales.user_id = master.user_id
+group by web_usage
+ 
