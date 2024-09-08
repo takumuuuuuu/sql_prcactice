@@ -1,0 +1,20 @@
+with master as (
+select concat(cid, session_count) as session 
+, min(date_time) as time_of_lp
+, min(cid) as cid
+, min(session_count) as session_count
+from sample.web_log
+group by session 
+)
+
+select page
+, count(session) as sessions
+from sample.web_log as web_log
+join master 
+on web_log.cid = master.cid
+and web_log.session_count = master.session_count
+where date_time = time_of_lp
+group by page
+order by sessions desc
+limit 3
+;
