@@ -1,0 +1,25 @@
+with master as (
+select extract(year from date_time) as year
+, case when extract(year from date_time) = 2017 then 800000
+       when extract(year from date_time) = 2018 then 1000000 
+       when extract(year from date_time) = 2019 then 1200000  
+  end as target
+from sample.sales     
+)
+, master2 as (
+select extract(year from date_time) as year
+, sum(revenue) as sum_rev
+from sample.sales 
+group by year
+)
+
+select master.year
+, avg(target) as target
+, avg(sum_rev) as sum_rev
+, ( avg(sum_rev) - avg(target) ) / avg(target) as achivement_rate
+from master
+join master2
+on master.year = master2.year
+group by master.year
+order by year
+;
