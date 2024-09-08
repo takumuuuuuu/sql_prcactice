@@ -1,0 +1,16 @@
+select product_name
+, sum(rev_female) as sum_rev_female
+,  sum(rev_female)/ sum(revenue) as percent_rev_female
+from (
+select  product_name
+, if(gender = 2, revenue, 0) as rev_female
+, revenue
+from sample.sales 
+left join sample.customers 
+using(user_id) 
+left join sample.products 
+using(product_id) 
+)
+group by product_name
+limit 3
+;
