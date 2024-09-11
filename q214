@@ -1,0 +1,17 @@
+with master as (
+select if(gender = 1, "男性", "女性") as gender 
+, date_diff("2019-12-31", birthday, year) as age
+from sample.customers
+where birthday is not null
+)
+
+select gender
+, avg(age)
+, max(med_age) as med_age
+from (
+select *
+, percentile_cont(age, 0.5) over (partition by gender ) as med_age
+from master
+)
+group by gender
+;
