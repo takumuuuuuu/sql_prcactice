@@ -1,0 +1,25 @@
+with master as (
+select format_datetime("%Y", date_time) as year 
+, format_datetime("%H", date_time) as hour
+, sum(revenue) as sum_rev
+from sample.sales 
+group by year, hour
+)
+
+select year
+, hour 
+, sum_rev 
+from (
+select year
+, hour
+, sum_rev
+, rank() over (
+  partition by year 
+  order by sum_rev desc 
+) as rank_sum_rev
+from master 
+)
+where rank_sum_rev = 1
+order by year 
+;
+
