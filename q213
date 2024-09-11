@@ -1,0 +1,24 @@
+with master as (
+select product_id
+, format_datetime("%Y", date_time) as year 
+, sum(revenue) as sum_rev
+from sample.sales 
+where format_datetime("%Y", date_time) in ("2018", "2019") 
+group by product_id, year
+)
+
+
+select year
+, product_id
+, rev_rank
+from (
+select   product_id
+, year
+, rank() over (
+  partition by year
+  order by  sum_rev desc
+) as rev_rank
+from master
+)
+where rev_rank between 1 and 3
+;
