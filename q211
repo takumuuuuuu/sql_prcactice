@@ -1,0 +1,16 @@
+with master as (
+select prefecture
+, min(birthday) as old_birthday
+from sample.customers
+where prefecture in ("東京", "大阪", "京都")
+and birthday is not null 
+group by prefecture
+)
+
+select prefecture 
+, name
+from sample.customers
+left join master 
+using(prefecture)
+where prefecture in ("東京", "大阪", "京都")
+and birthday = old_birthday 
