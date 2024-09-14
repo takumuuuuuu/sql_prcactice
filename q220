@@ -1,0 +1,20 @@
+with master as (
+select user_id
+, product_id
+, sum(revenue) as sum_rev
+from sample.sales
+group by user_id, product_id
+having sum(revenue) >= 2000
+)
+
+select mas1.user_id
+, mas1.product_id as product_id
+, mas1.sum_rev as sum_rev
+, mas2.product_id as product_id2
+, mas2.sum_rev as sum_rev2
+from master as mas1
+inner join master as mas2
+on mas1.user_id = mas2.user_id
+and mas1.product_id < mas2.product_id
+where mas1.sum_rev = mas2.sum_rev
+order by mas1.user_id
