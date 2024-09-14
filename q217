@@ -1,0 +1,17 @@
+with master as (
+select user_id
+from sample.sales 
+where format_datetime("%Y-%Q", date_time) = "2017-1"
+group by user_id
+)
+
+
+select format_datetime("%Y-%Q", date_time) as year_quarter
+, sum(revenue) as sum_rev
+from sample.sales
+inner join master
+using(user_id)
+where format_datetime("%Q", date_time) = "1"
+group by year_quarter
+order by year_quarter
+;
