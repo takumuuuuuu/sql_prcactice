@@ -1,0 +1,20 @@
+with master as (
+select if(gender = 1, "男性", "女性") as gender
+, name
+, birthday 
+from sample.customers 
+where gender is not null
+)
+
+select gender
+, name
+, birthday
+from (
+  select *
+  , rank() over (
+    partition by gender
+    order by birthday desc
+  ) as rank_birth
+  from master
+)
+where rank_birth = 2
