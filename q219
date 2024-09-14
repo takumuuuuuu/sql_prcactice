@@ -1,0 +1,31 @@
+with master1 as (
+select count(distinct user_id) as users_all
+from sample.sales
+) 
+, master2 as (
+select sum(revenue) as sum_rev_all
+from sample.sales   
+) 
+, master3 as (
+select user_id
+, sum(revenue) as sum_rev
+from sample.sales 
+group by user_id
+)
+
+select round(users_100 / users_all, 3) as user_accum_percentage
+, round(sum_rev_100 / sum_rev_all, 3) as rev_accum_percentage
+from (
+select count(distinct user_id) as users_100
+, sum(sum_rev) as sum_rev_100
+from (
+select *
+, rank() over (
+  order by sum_rev desc  
+) as rank_sum_rev
+from master3
+)
+where rank_sum_rev <= 100
+)
+cross join master1
+cross join master2 
