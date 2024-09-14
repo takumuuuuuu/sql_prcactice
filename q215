@@ -1,0 +1,18 @@
+with master as (
+select cid
+, count(page) as num_page
+from sample.web_log 
+where format_datetime("%Y%Q", date_time) = "20182"
+group by cid
+)
+
+
+select cid
+from (
+  select * 
+  , rank() over (
+    order by num_page desc
+  ) as rank_num_page
+  from master
+)
+where rank_num_page = 1
