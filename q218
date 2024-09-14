@@ -1,0 +1,20 @@
+with master1 as (
+select sum(revenue) as sum_rev_1
+from sample.sales 
+where format_datetime("%Y-%m", date_time) = "2017-01"
+), 
+master2 as (
+select sum(revenue) as sum_rev
+, format_datetime("%Y-%m", date_time) as year_month
+from sample.sales 
+where format_datetime("%Y", date_time) = "2017"
+group by year_month
+)
+
+select year_month
+, round(sum_rev / sum_rev_1, 2)  as change_from_jan
+from master2
+cross join master1
+order by change_from_jan desc
+limit 3
+;
