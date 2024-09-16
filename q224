@@ -1,0 +1,16 @@
+select count(distinct user_id)  as users
+from (
+select user_id
+, ntile(5) over (order by Frequency desc) as rank_fre
+, ntile(5) over (order by Monetary desc) as rank_mon
+, ntile(5) over (order by Recency desc) as rank_rec
+from (
+select user_id
+, count(distinct order_id) as Frequency
+, sum(revenue) as Monetary
+, max(date_time) as Recency 
+from sample.sales 
+group by user_id
+)
+)
+where (rank_fre + rank_mon + rank_rec) = 3
