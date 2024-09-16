@@ -1,0 +1,26 @@
+with master as (
+select if(gender = 1, "男性", "女性") as gender
+, product_name
+, sum(revenue) as sum_rev 
+from sample.sales
+left join sample.customers 
+using(user_id)
+left join sample.products
+using(product_id)
+where gender is not null 
+group by gender, product_name
+)
+
+select  gender
+, product_name
+, sum_rev
+, rank_in_gender
+from(
+ select *
+ , rank() over (
+  partition by gender
+  order by sum_rev desc) as rank_in_gender
+ from master
+)
+where rank_in_gender <= 3
+order by gender desc, sum_rev desc
