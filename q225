@@ -1,0 +1,33 @@
+with master as (
+select user_id
+, count(distinct order_id) as num_of_order
+from sample.sales 
+group by user_id
+having num_of_order >= 3
+order by num_of_order
+)
+, master2 as (
+select user_id
+, min(second_date_time) as second_date_time
+, min(third_date_time) as third_date_time
+from (  
+select user_id
+, nth_value(date_time, 2) over (partition by user_id order by date_time) as second_date_time
+, nth_value(date_time, 3) over (partition by user_id order by date_time) as third_date_time
+from (
+select min(user_id) user_id
+, min(date_time) as date_time
+from sample.sales
+group by order_id  
+)   
+)
+group by user_id
+)
+
+select user_id
+, datetime_diff(third_date_time, second_date_time, day) as interval_between_2_and_3
+from master
+left join master2
+using(user_id) 
+order by interval_between_2_and_3
+;
