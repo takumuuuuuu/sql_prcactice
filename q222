@@ -1,0 +1,18 @@
+with master as (
+select cast(format_datetime("%m", date_time) as int64) as month
+, format_datetime("%Y-%m", date_time) as year_month 
+, sum(revenue) as sum_rev 
+from sample.sales 
+where format_datetime("%Y", date_time) = "2017"
+group by month, year_month
+)
+
+
+select mas1.year_month as year_month
+, mas2.sum_rev as previous_sum_rev
+, mas1.sum_rev as sum_rev
+, round((mas1.sum_rev - mas2.sum_rev) / mas2.sum_rev, 3) as change_from_previous_month
+from master as mas1
+inner join master as mas2
+on mas1.month = mas2.month + 1 
+where mas1.month <= 4
