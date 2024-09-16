@@ -1,0 +1,45 @@
+with master1 as (
+select sum(revenue) as sum_rev_all
+from sample.sales  
+)
+, master2 as (
+select rev_bucket
+, sum(sum_rev_user) as sum_rev_group
+from (
+select ntile(5) over (order by sum_rev_user desc) as rev_bucket
+, sum_rev_user
+from (
+  select user_id
+  , sum(revenue) as sum_rev_user
+  from sample.sales
+  group by user_id
+)
+)
+group by rev_bucket
+order by rev_bucket
+)
+
+select rev_bucket
+, sum_rev_a as sum_rev_by_bucket
+, sum_rev_a + sum_rev_b + sum_rev_c + sum_rev_d + sum_rev_e as accum_sum_rev_by_bucket
+, (sum_rev_a + sum_rev_b + sum_rev_c + sum_rev_d + sum_rev_e) / sum_rev_all as accum_rev_percentage 
+from(
+select a.rev_bucket as rev_bucket
+, a.sum_rev_group as sum_rev_a
+, ifnull(b.sum_rev_group, 0) as sum_rev_b
+, ifnull(c.sum_rev_group, 0) as sum_rev_c
+, ifnull(d.sum_rev_group, 0) as sum_rev_d
+, ifnull(e.sum_rev_group, 0) as sum_rev_e
+from master2 as a  
+left join master2 as b
+on a.rev_bucket = b.rev_bucket + 1
+left join master2 as c 
+on a.rev_bucket = c.rev_bucket + 2
+left join master2 as d
+on a.rev_bucket = d.rev_bucket + 3
+left join master2 as e 
+on a.rev_bucket = e.rev_bucket + 4
+order by rev_bucket 
+)
+cross join master1
+order by rev_bucket
