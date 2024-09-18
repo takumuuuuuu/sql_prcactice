@@ -1,0 +1,29 @@
+select user_id
+from (
+select user_id
+,  ntile(10) over (order by sum_rev desc)  as rank
+from (
+select user_id
+, sum(revenue) as sum_rev
+from sample.sales
+where format_datetime("%Y", date_time) = "2017" 
+group by user_id
+)
+)
+where rank = 1
+
+intersect distinct 
+
+select user_id
+from (
+select user_id
+,  ntile(10) over (order by sum_rev desc)  as rank
+from (
+select user_id
+, sum(revenue) as sum_rev
+from sample.sales
+where format_datetime("%Y", date_time) = "2018" 
+group by user_id
+)
+)
+where rank = 1
