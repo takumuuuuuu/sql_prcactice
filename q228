@@ -1,0 +1,16 @@
+select user_id
+, min(sum_rev) as min_rev
+, max(sum_rev) as max_rev
+, max(sum_rev) - min(sum_rev) as rev_range
+from (
+select user_id
+, order_id
+, sum(revenue) as sum_rev 
+from sample.sales 
+group by user_id, order_id
+)
+group by user_id
+having count(distinct order_id) > 1
+order by rev_range desc
+limit 3
+;
