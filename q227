@@ -1,0 +1,37 @@
+with master as (
+select session 
+, if(num_of_page = 1, 1, 0) as bounce
+from (
+select concat(cid, session_count) as session 
+, count(page) as num_of_page
+from sample.web_log
+group by session
+)
+)
+, master2 as (
+select session
+, min(lp) as lp
+from (
+select session 
+, first_value(page) over (partition by session order by date_time) as lp
+from (
+select concat(cid, session_count) as session
+, page
+, date_time
+from sample.web_log 
+)
+)
+group by session
+)
+
+select if(regexp_contains(lp, "sys=abc123") is true, regexp_replace(lp, r"\?sys=abc123", ""), lp) as landing_page
+, count(lp) as session
+, sum(bounce) as bounce
+, sum(bounce) / count(lp) as bounce_rate
+from master
+left join master2
+using(session) 
+group by landing_page
+order by bounce_rate desc
+limit 3
+;
