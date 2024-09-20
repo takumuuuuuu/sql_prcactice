@@ -1,0 +1,27 @@
+select min(lp) as landing_page
+, second_page
+, third_page
+, count(distinct session) as session 
+from (
+select session
+, max(lp) as lp
+, max(second_page) as second_page
+, max (third_page) as third_page
+from (
+select first_value(page) over (partition by session order by date_time) as lp 
+, nth_value(page, 2) over (partition by session order by date_time) as second_page
+, nth_value(page, 3) over (partition by session order by date_time) as third_page
+, session
+from (
+select concat(cid, session_count) as session 
+, page
+, date_time
+from sample.web_log
+)
+)
+group by session
+)
+where lp = "/"
+group by second_page, third_page
+order by session desc
+limit 5 
