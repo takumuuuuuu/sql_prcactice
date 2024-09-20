@@ -1,0 +1,51 @@
+select year
+, user_id
+, name
+, product_id as best_product_by_user
+, product_name as best_productname_by_user
+, sum_rev as sum_rev_by_product
+from (
+select user_id
+, year
+, product_id
+, sum_rev
+from(
+select *
+, rank() over (partition by user_id order by sum_rev desc) as rank_sum_rev
+from(
+select user_id
+, min(year) as year
+, product_id
+, sum(revenue) as sum_rev
+from (
+select user_id
+, year
+from (
+select user_id
+, sum_rev
+, rank() over (partition by  year order by sum_rev desc) as rank_user
+, year
+from(
+select user_id
+, sum(revenue) as sum_rev
+, format_datetime("%Y", date_time) as year
+from sample.sales 
+group by user_id, year
+)
+)
+where rank_user = 1
+)
+left join sample.sales 
+using(user_id)
+where year = format_datetime("%Y", date_time)
+group by user_id, product_id
+order by user_id, product_id
+)
+)
+where rank_sum_rev = 1
+)
+left join sample.customers 
+using(user_id)
+left join sample.products
+using(product_id)
+order by year
